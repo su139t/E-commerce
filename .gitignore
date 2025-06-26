@@ -1,19 +1,5 @@
-# .DS_Store
-# node_modules
-# dist
-# .env
-# OS
+# Root .gitignore
 .DS_Store
-
-# Node dependencies
 node_modules/
-# or specifically:
-# backend/node_modules/
-# ecommerce-prj/node_modules/
-
-# Build output
 dist/
-build/
-
-# Environment variables
 .env

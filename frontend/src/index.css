@@ -1,1 +1,13 @@
 @import "tailwindcss";
+@keyframes moveWave {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.bg-wave-pattern {
+  background-image: url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
+}

@@ -1,11 +1,12 @@
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { nanoid } from "nanoid";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { asyncRegisterUser } from "../store/actions/userAction";
+import { useDispatch, useSelector } from "react-redux";
 
 const Register = () => {
-  let password;
-
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -15,12 +16,13 @@ const Register = () => {
     getValues,
   } = useForm({ mode: "onTouched" });
 
-  password = watch("password", "");
 
   const RegisterHandler = (data) => {
     data.id = nanoid();
-    console.log(data);
-    reset(); // optional: reset form after submission
+    data.isAdmin = false;
+    dispatch(asyncRegisterUser(data));
+    // navigate("/login");
+    reset(); 
   };
 
   return (
@@ -60,7 +62,7 @@ const Register = () => {
               {...register("email", {
                 required: "Enter Your Email Id",
               })}
-              type="email"
+              type="text"
               placeholder="Email ID"
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 transition"
             />
@@ -86,17 +88,17 @@ const Register = () => {
                 {errors.password.message}
               </p>
             )}
-          </div>{" "}
-          <div>
+          </div>
+          {/* <div>
             <input
-              {...register("cpassword", {
-                required: "**Password is required",
-                validate: (val) => {
-                  if (watch("password") != val) {
-                    return "Your passwords do no match";
-                  }
-                },
-              })}
+              // {...register("cpassword", {
+              //   required: "**Password is required",
+              //   validate: (val) => {
+              //     if (watch("password") != val) {
+              //       return "Your passwords do no match";
+              //     }
+              //   },
+              // })}
               // {...register(
               //   "cpassword",
               //   { required: "**Password is required" },
@@ -106,14 +108,13 @@ const Register = () => {
               placeholder="Confirm Password"
               name="cpassword"
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400 transition"
-            />
-            {errors.cpassword && (
+            /> */}
+          {/* {errors.cpassword && (
               <p className="text-red-500 text-sm mt-1">
                 {errors.cpassword.message}
               </p>
-            )}
-          </div>
-          {/* Submit Button */}
+            )} */}
+          {/* </div> */}
           <button
             type="submit"
             className="mt-4 py-3 bg-gradient-to-r from-indigo-500 to-pink-500 text-white font-semibold rounded-lg hover:scale-105 transition-transform"

@@ -1,9 +1,11 @@
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
-import { nanoid } from "nanoid";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { asyncLoginUser } from "../store/actions/userAction";
 
 const Login = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -11,10 +13,12 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  const LoginHandler = (data) => {
-    data.id = nanoid();
-    console.log(data);
-    reset(); // optional: reset form after submission
+  const dispatch = useDispatch();
+
+  const LoginHandler = async (data) => {
+    await dispatch(asyncLoginUser(data));
+    navigate("/products");
+    // reset(); // optional: reset form after submission
   };
 
   return (
@@ -27,36 +31,26 @@ const Login = () => {
         transition={{ duration: 0.6 }}
       >
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
-          Welcome Back
+          Welcome Back 😉...
         </h2>
-        <form onSubmit={handleSubmit(LoginHandler)} className="flex flex-col space-y-4">
-          {/* Username */}
-          <div>
-            <input
-              {...register("username", {
-                required: "Enter Username",
-              })}
-              type="text"
-              placeholder="Username"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
-            />
-            {errors.username && (
-              <p className="text-red-500 text-sm mt-1">{errors.username.message}</p>
-            )}
-          </div>
-
+        <form
+          onSubmit={handleSubmit(LoginHandler)}
+          className="flex flex-col space-y-4"
+        >
           {/* Email */}
           <div>
             <input
               {...register("email", {
                 required: "Enter Your Email Id",
               })}
-              type="email"
+              type="text"
               placeholder="Email ID"
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 transition"
             />
             {errors.email && (
-              <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+              <p className="text-red-500 text-sm mt-1">
+                {errors.email.message}
+              </p>
             )}
           </div>
 
@@ -71,7 +65,9 @@ const Login = () => {
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400 transition"
             />
             {errors.password && (
-              <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
+              <p className="text-red-500 text-sm mt-1">
+                {errors.password.message}
+              </p>
             )}
           </div>
 
@@ -82,7 +78,12 @@ const Login = () => {
           >
             Login
           </button>
-          <p>Don't have an account {" "}<Link to="/register" className="text-red-400">Register</Link></p>
+          <p>
+            Don't have an account{" "}
+            <Link to="/register" className="text-red-400">
+              Register
+            </Link>
+          </p>
         </form>
       </motion.div>
     </div>

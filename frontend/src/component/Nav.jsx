@@ -1,27 +1,117 @@
-import { NavLink } from "react-router-dom";
-import Home from "../pages/Home";
+import { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { asyncLogOutUser } from "../store/actions/userAction";
+import { Menu, X } from "lucide-react"; // Or use any icon lib
 
 const Nav = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.userReducer.users);
+
+  const SignOutHandler =  () => {
+    dispatch(asyncLogOutUser());
+    navigate("/login");
+    setIsOpen(false);
+  };
+
+  const toggleMenu = () => setIsOpen(!isOpen);
+  const closeMenu = () => setIsOpen(false);
+
   return (
-    <div className="py-10">
-      <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10 md:gap-16 lg:gap-20 font-medium py-4 border border-amber-100 rounded-full bg-[#096B68] text-white text-sm sm:text-base">
-        <NavLink to="/" className={(e) => (e.isActive ? "text-red-400" : "")}>
-          Home
-        </NavLink>
-        <NavLink
-          to="/products"
-          className={(e) => (e.isActive ? "text-red-400" : "")}
+    <nav className="bg-[#096B68] text-white px-4 py-3 border border-amber-100">
+      {/* Top section */}
+      <div className="flex justify-between items-center">
+        <h1 className="text-lg font-semibold">MyStore</h1>
+
+        {/* Toggle button */}
+        <button
+          className="sm:hidden focus:outline-none"
+          onClick={toggleMenu}
         >
-          Products
-        </NavLink>
-        <NavLink
-          to="/login"
-          className={(e) => (e.isActive ? "text-red-400" : "")}
-        >
-          Login
-        </NavLink>
+          {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        </button>
+
+        {/* Desktop Menu */}
+        <div className="hidden sm:flex gap-6 md:gap-10 font-medium text-sm sm:text-base">
+          <NavLink
+            to="/"
+            className={({ isActive }) => (isActive ? "text-red-400" : "")}
+          >
+            Home
+          </NavLink>
+          <NavLink
+            to="/products"
+            className={({ isActive }) => (isActive ? "text-red-400" : "")}
+          >
+            Products
+          </NavLink>
+          {user ? (
+            <>
+              <NavLink
+                to="/admin/create-products"
+                className={({ isActive }) =>
+                  isActive ? "text-red-400" : ""
+                }
+              >
+                Create Products
+              </NavLink>
+              <button onClick={SignOutHandler}>Sign Out</button>
+            </>
+          ) : (
+            <NavLink
+              to="/login"
+              className={({ isActive }) => (isActive ? "text-red-400" : "")}
+            >
+              Login
+            </NavLink>
+          )}
+        </div>
       </div>
-    </div>
+
+      {/* Mobile Menu */}
+      {isOpen && (
+        <div className="sm:hidden flex flex-col gap-4 mt-4 text-sm">
+          <NavLink
+            to="/"
+            className={({ isActive }) => (isActive ? "text-red-400" : "")}
+            onClick={closeMenu}
+          >
+            Home
+          </NavLink>
+          <NavLink
+            to="/products"
+            className={({ isActive }) => (isActive ? "text-red-400" : "")}
+            onClick={closeMenu}
+          >
+            Products
+          </NavLink>
+          {user ? (
+            <>
+              <NavLink
+                to="/admin/create-products"
+                className={({ isActive }) =>
+                  isActive ? "text-red-400" : ""
+                }
+                onClick={closeMenu}
+              >
+                Create Products
+              </NavLink>
+              <button onClick={SignOutHandler}>Sign Out</button>
+            </>
+          ) : (
+            <NavLink
+              to="/login"
+              className={({ isActive }) => (isActive ? "text-red-400" : "")}
+              onClick={closeMenu}
+            >
+              Login
+            </NavLink>
+          )}
+        </div>
+      )}
+    </nav>
   );
 };
 

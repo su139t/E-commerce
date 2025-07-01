@@ -42,12 +42,12 @@ const ProductDetail = () => {
 
   const DeleteProduct = () => {
     dispatch(asyncDeleteProduct(product.id));
-    navigate("/products");
+    navigate("/");
   };
 
   const UpdateProductHandler = (data) => {
     dispatch(asyncUpdateProduct(data));
-    navigate("/products");
+    navigate("/");
   };
 
   if (!product)

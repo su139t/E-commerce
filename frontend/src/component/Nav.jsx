@@ -10,7 +10,7 @@ const Nav = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.userReducer.users);
 
-  const SignOutHandler =  () => {
+  const SignOutHandler = () => {
     dispatch(asyncLogOutUser());
     navigate("/login");
     setIsOpen(false);
@@ -26,10 +26,7 @@ const Nav = () => {
         <h1 className="text-lg font-semibold">MyStore</h1>
 
         {/* Toggle button */}
-        <button
-          className="sm:hidden focus:outline-none"
-          onClick={toggleMenu}
-        >
+        <button className="sm:hidden focus:outline-none" onClick={toggleMenu}>
           {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
 
@@ -41,21 +38,26 @@ const Nav = () => {
           >
             Home
           </NavLink>
-          <NavLink
-            to="/products"
+          {/* <NavLink
+            to="/"
             className={({ isActive }) => (isActive ? "text-red-400" : "")}
           >
             Products
-          </NavLink>
+          </NavLink> */}
           {user ? (
             <>
               <NavLink
                 to="/admin/create-products"
-                className={({ isActive }) =>
-                  isActive ? "text-red-400" : ""
-                }
+                className={({ isActive }) => (isActive ? "text-red-400" : "")}
               >
                 Create Products
+              </NavLink>
+              <NavLink
+                to="/update-profile"
+                className={({ isActive }) => (isActive ? "text-red-400" : "")}
+                onClick={closeMenu}
+              >
+                Settings
               </NavLink>
               <button onClick={SignOutHandler}>Sign Out</button>
             </>
@@ -91,12 +93,17 @@ const Nav = () => {
             <>
               <NavLink
                 to="/admin/create-products"
-                className={({ isActive }) =>
-                  isActive ? "text-red-400" : ""
-                }
+                className={({ isActive }) => (isActive ? "text-red-400" : "")}
                 onClick={closeMenu}
               >
                 Create Products
+              </NavLink>
+              <NavLink
+                to="/update-profile"
+                className={({ isActive }) => (isActive ? "text-red-400" : "")}
+                onClick={closeMenu}
+              >
+                Settings
               </NavLink>
               <button onClick={SignOutHandler}>Sign Out</button>
             </>

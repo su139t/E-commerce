@@ -31,6 +31,7 @@ export const asyncLogOutUser = () => async (dispatch) => {
     toast.success("LogOut Successfully...");
   } catch (error) {
     console.log(error);
+    toast.error(`Error: ${error.message}`);
   }
 };
 
@@ -39,19 +40,48 @@ export const asyncCurrentUser = () => async (dispatch) => {
   try {
     const user = JSON.parse(localStorage.getItem("UserLogin"));
     if (user) dispatch(loadusers(user));
-    else dispatch(logoutuser())
+    else dispatch(logoutuser());
   } catch (error) {
     console.log(error);
+    toast.error(`Error: ${error.message}`);
   }
 };
+
 export const asyncRegisterUser = (user) => async (dispatch, getState) => {
   try {
     const res = await axios.post("/users", user);
-    if (res.status === 201) {
+    if (res.status === 201 || res.status === 200) {
       toast.success("User Successfully Registered...");
     }
   } catch (error) {
     console.log(error);
     toast.error(`Error : ${error.message}`);
+  }
+};
+
+export const asyncUpdateUser = (user) => async (dispatch, getState) => {
+  try {
+    const res = await axios.patch("/users/" + user.id, user);
+    localStorage.removeItem("UserLogin");
+    localStorage.setItem("UserLogin", JSON.stringify(res.data));
+    dispatch(asyncCurrentUser());
+    if (res.status === 201 || res.status === 200) {
+      toast.success("User Profile Successfully Update...");
+    }
+  } catch (error) {
+    console.log(error);
+    toast.error(`Error : ${error.message}`);
+  }
+};
+
+export const asyncDeleteUser = (id) => async (dispatch) => {
+  try {
+    await axios.delete(`/users/${id}`);
+    localStorage.removeItem("UserLogin");
+    toast.success("account Deleted Successfully");
+    dispatch(asyncCurrentUser()); // ✅ refetch updated list
+  } catch (error) {
+    console.log(error);
+    toast.error(`Error: ${error.message}`);
   }
 };

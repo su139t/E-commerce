@@ -21,7 +21,7 @@ const Register = () => {
     data.id = nanoid();
     data.isAdmin = false;
     dispatch(asyncRegisterUser(data));
-    // navigate("/login");
+    navigate("/login");
     reset(); 
   };
 

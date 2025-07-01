@@ -27,20 +27,6 @@
   ],
   "users": [
     {
-      "id": "1",
-      "email": "john@gmail.com",
-      "username": "johnd",
-      "password": "m38rmF$",
-      "isAdmin": false
-    },
-    {
-      "id": "TiEfCbDcrO4TuXJPWhQAr",
-      "username": "sumit",
-      "email": "sumit",
-      "password": "1234",
-      "isAdmin": false
-    },
-    {
       "id": "CGGXQYMuKTN_TYGKB6zqo",
       "username": "sumit",
       "email": "sumit",

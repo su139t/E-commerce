@@ -3,10 +3,11 @@ import { useForm } from "react-hook-form";
 import { nanoid } from "nanoid";
 import { Link, useNavigate } from "react-router-dom";
 import { asyncRegisterUser } from "../store/actions/userAction";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const Register = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,

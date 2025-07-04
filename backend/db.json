@@ -42,17 +42,6 @@
             "description": "48 mp camera of sony",
             "category": "Accessories"
           },
-          "quantity": 4
-        },
-        {
-          "product": {
-            "id": "1",
-            "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
-            "price": 109.95,
-            "description": "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
-            "category": "men's clothing",
-            "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
-          },
           "quantity": 2
         },
         {
@@ -65,8 +54,27 @@
             "category": "Men's Clothing"
           },
           "quantity": 1
+        },
+        {
+          "product": {
+            "id": "1",
+            "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
+            "price": 109.95,
+            "description": "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
+            "category": "men's clothing",
+            "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
+          },
+          "quantity": 1
         }
       ]
+    },
+    {
+      "id": "y0QGJAXqW1KuMBe79x7GX",
+      "username": "su139t",
+      "email": "su139t",
+      "password": "1234",
+      "isAdmin": false,
+      "cart": []
     }
   ]
 }

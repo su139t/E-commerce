@@ -21,12 +21,11 @@ const Cart = () => {
       .toFixed(2);
   };
 
-  const AddtoCartHandler = (item) => {
+  const AddtoCartHandler = (item, x) => {
     const copyuser = {
       ...users,
       cart: users.cart ? [...users.cart] : [],
     };
-    const x = copyuser.cart.findIndex((n) => n?.product?.id === item.product.id);
     const currentQuantity = copyuser.cart[x].quantity;
     copyuser.cart[x] = {
       product: item.product,
@@ -35,13 +34,11 @@ const Cart = () => {
     dispatch(asyncUpdateUser(copyuser));
   };
 
-  const MinusFromCartHandler = (item) => {
+  const MinusFromCartHandler = (item, x) => {
     const copyuser = {
       ...users,
       cart: users.cart ? [...users.cart] : [],
     };
-    const x = copyuser.cart.findIndex((n) => n?.product?.id === item.product.id);
-
     if (x !== -1) {
       const currentQuantity = copyuser.cart[x].quantity;
       if (currentQuantity === 1) {
@@ -54,7 +51,6 @@ const Cart = () => {
           quantity: currentQuantity - 1,
         };
       }
-
       dispatch(asyncUpdateUser(copyuser));
     }
   };
@@ -69,7 +65,7 @@ const Cart = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Cart Items */}
           <div className="lg:col-span-2 space-y-4">
-            {cartItems.map((item) => (
+            {cartItems.map((item, index) => (
               <div
                 key={item.product.id}
                 className="flex bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition"
@@ -96,14 +92,14 @@ const Cart = () => {
                       <span className="text-gray-600 text-sm">Qty:</span>
                       <div className="flex items-center gap-1">
                         <button
-                          onClick={() => MinusFromCartHandler(item)}
+                          onClick={() => MinusFromCartHandler(item, index)}
                           className="px-2 py-1 text-sm rounded border bg-gray-100 hover:bg-gray-200"
                         >
                           -
                         </button>
                         <span className="px-3 text-sm">{item.quantity}</span>
                         <button
-                          onClick={() => AddtoCartHandler(item)}
+                          onClick={() => AddtoCartHandler(item, index)}
                           className="px-2 py-1 text-sm rounded border bg-gray-100 hover:bg-gray-200"
                         >
                           +

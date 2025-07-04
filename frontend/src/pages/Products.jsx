@@ -25,7 +25,7 @@ const Products = () => {
     if (x < 0) {
       // If product is not in cart, add with quantity 1
       copyuser.cart.push({ product, quantity: 1 });
-      toast.success("1 product add on your cart");
+      toast.success(`🛒 "${product.title}" added to your cart.`);
     } else {
       // If product exists, increment its quantity by 1
       const currentQuantity = copyuser.cart[x].quantity;
@@ -33,7 +33,9 @@ const Products = () => {
         product,
         quantity: currentQuantity + 1,
       };
-      toast.success(`${currentQuantity + 1} product add on your cart`);
+      toast.info(
+        `🛒 "${product.title}" quantity updated to ${currentQuantity + 1}.`
+      );
     }
     dispatch(asyncUpdateUser(copyuser)); // Update the backend/store
     navigate("/cart");

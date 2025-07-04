@@ -23,7 +23,7 @@ const Nav = () => {
     <nav className="bg-[#21306d] text-white px-4 py-3 border border-amber-100">
       {/* Top section */}
       <div className="flex justify-between items-center">
-        <h1 className="text-lg font-semibold"></h1>
+        <h1 className="text-lg font-semibold text-red-400">{user?.isAdmin ? "Admin Panel" : "User Panel"}</h1>
 
         {/* Toggle button */}
         <button className="sm:hidden focus:outline-none" onClick={toggleMenu}>

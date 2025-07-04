@@ -1,18 +1,44 @@
 import { useDispatch, useSelector } from "react-redux";
 import { asyncGetProduct } from "../store/actions/productAction";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { asyncUpdateUser } from "../store/actions/userAction";
 import { toast } from "react-toastify";
+import InfiniteScroll from "../../node_modules/react-infinite-scroll-component/dist/index.es";
+import axios from "../api/axiosconfig";
 
 const Products = () => {
-  const { products } = useSelector((state) => state.productReducer);
+  // const { products } = useSelector((state) => state.productReducer);
   const { users } = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [products, setproducts] = useState([]);
+  const [hasMore, sethasMore] = useState(true);
+
+  // useEffect(() => {
+  //   dispatch(asyncGetProduct());
+  // }, [dispatch]);
+
+  const fetchMoreData = async () => {
+    try {
+      const initialItems = 6;
+      const { data } = await axios.get(
+        `/products?_limit=${initialItems}&_start=${products.length}`
+      );
+
+      if (data.length == 0) {
+        sethasMore(false);
+      } else {
+        setproducts([...products, ...data]);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
-    dispatch(asyncGetProduct());
-  }, [dispatch]);
+    fetchMoreData();
+  }, []);
 
   const AddtoCartHandler = (product) => {
     const copyuser = {
@@ -41,9 +67,9 @@ const Products = () => {
     navigate("/cart");
   };
 
-  const renderproducts = products?.map((product) => (
+  const renderproducts = products?.map((product, index) => (
     <div
-      key={product.id}
+      key={index}
       className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow hover:scale-105 duration-300 overflow-hidden"
     >
       <img
@@ -92,9 +118,16 @@ const Products = () => {
       {products?.length === 0 ? (
         <p className="text-center text-gray-500">Loading products...</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {renderproducts}
-        </div>
+        <InfiniteScroll
+          dataLength={products.length}
+          next={fetchMoreData}
+          hasMore={hasMore}
+          loader={<h4>Loading...</h4>}
+        >
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {renderproducts}
+          </div>
+        </InfiniteScroll>
       )}
     </div>
   );

@@ -16,7 +16,7 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-[#FFFBDE] via-[#90D1CA] to-[#129990] text-gray-800">
+    <div className="min-h-screen w-full bg-blue-300 text-gray-800">
       {/* Toast container should be placed near the root */}
       <ToastContainer
         position="top-center"

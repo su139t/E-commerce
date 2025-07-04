@@ -20,6 +20,7 @@ const Register = () => {
   const RegisterHandler = (data) => {
     data.id = nanoid();
     data.isAdmin = false;
+    data.cart = []
     dispatch(asyncRegisterUser(data));
     navigate("/login");
     reset(); 

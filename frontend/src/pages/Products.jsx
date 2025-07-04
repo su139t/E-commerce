@@ -1,15 +1,43 @@
 import { useDispatch, useSelector } from "react-redux";
 import { asyncGetProduct } from "../store/actions/productAction";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { asyncUpdateUser } from "../store/actions/userAction";
+import { toast } from "react-toastify";
 
 const Products = () => {
-  const products = useSelector((state) => state.productReducer.products);
+  const { products } = useSelector((state) => state.productReducer);
+  const { users } = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(asyncGetProduct());
   }, [dispatch]);
+
+  const AddtoCartHandler = (product) => {
+    const copyuser = {
+      ...users,
+      cart: users.cart ? [...users.cart] : [],
+    };
+
+    const x = copyuser.cart.findIndex((n) => n?.product?.id === product.id);
+
+    if (x < 0) {
+      // If product is not in cart, add with quantity 1
+      copyuser.cart.push({ product, quantity: 1 });
+      toast.success("1 product add on your cart");
+    } else {
+      // If product exists, increment its quantity by 1
+      const currentQuantity = copyuser.cart[x].quantity;
+      copyuser.cart[x] = {
+        product,
+        quantity: currentQuantity + 1,
+      };
+      toast.success(`${currentQuantity + 1} product add on your cart`);
+    }
+    dispatch(asyncUpdateUser(copyuser)); // Update the backend/store
+    navigate("/cart");
+  };
 
   const renderproducts = products?.map((product) => (
     <div
@@ -46,7 +74,10 @@ const Products = () => {
           >
             Read more
           </Link>
-          <button className="bg-indigo-600 text-white text-sm px-4 py-1.5 rounded-full hover:bg-indigo-700 transition">
+          <button
+            className="bg-indigo-600 text-white text-sm px-4 py-1.5 rounded-full hover:bg-indigo-700 transition"
+            onClick={() => AddtoCartHandler(product)}
+          >
             Add to Cart
           </button>
         </div>

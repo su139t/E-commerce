@@ -13,7 +13,7 @@ export const asyncLoginUser = (user) => async (dispatch) => {
       const loggedInUser = data[0];
       dispatch(loadusers(loggedInUser));
       localStorage.setItem("UserLogin", JSON.stringify(loggedInUser));
-      toast.success("LogIn Successfully...");
+      // toast.success("LogIn Successfully...");
     } else {
       toast.error("User Not Found...");
     }
@@ -28,7 +28,7 @@ export const asyncLogOutUser = () => async (dispatch) => {
   try {
     dispatch(logoutuser());
     localStorage.removeItem("UserLogin");
-    toast.success("LogOut Successfully...");
+    // toast.success("LogOut Successfully...");
   } catch (error) {
     console.log(error);
     toast.error(`Error: ${error.message}`);
@@ -50,9 +50,9 @@ export const asyncCurrentUser = () => async (dispatch) => {
 export const asyncRegisterUser = (user) => async (dispatch, getState) => {
   try {
     const res = await axios.post("/users", user);
-    if (res.status === 201 || res.status === 200) {
-      toast.success("User Successfully Registered...");
-    }
+    // if (res.status === 201 || res.status === 200) {
+    //   toast.success("User Successfully Registered...");
+    // }
   } catch (error) {
     console.log(error);
     toast.error(`Error : ${error.message}`);
@@ -65,9 +65,9 @@ export const asyncUpdateUser = (user) => async (dispatch, getState) => {
     localStorage.removeItem("UserLogin");
     localStorage.setItem("UserLogin", JSON.stringify(res.data));
     dispatch(asyncCurrentUser());
-    if (res.status === 201 || res.status === 200) {
-      toast.success("User Profile Successfully Update...");
-    }
+    // if (res.status === 201 || res.status === 200) {
+    //   toast.success("User Profile Successfully Update...");
+    // }
   } catch (error) {
     console.log(error);
     toast.error(`Error : ${error.message}`);
@@ -77,9 +77,8 @@ export const asyncUpdateUser = (user) => async (dispatch, getState) => {
 export const asyncDeleteUser = (id) => async (dispatch) => {
   try {
     await axios.delete(`/users/${id}`);
-    localStorage.removeItem("UserLogin");
-    toast.success("account Deleted Successfully");
-    dispatch(asyncCurrentUser()); // ✅ refetch updated list
+    dispatch(asyncLogOutUser()); // ✅ refetch updated list
+    // toast.success("account Deleted Successfully");
   } catch (error) {
     console.log(error);
     toast.error(`Error: ${error.message}`);

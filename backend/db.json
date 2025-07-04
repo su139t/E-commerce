@@ -9,20 +9,20 @@
       "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
     },
     {
-      "id": "q9RSBgorBM3fz6I54YU80",
-      "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      "title": "headphone",
-      "price": "549444",
-      "description": "sony headphone lelo",
-      "category": "Accessories"
-    },
-    {
       "id": "gCg7IDOSt3QNCCbcRUUYA",
       "image": "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "title": "camera",
       "price": "55555",
       "description": "48 mp camera of sony",
       "category": "Accessories"
+    },
+    {
+      "id": "YKD63crdk-WFrZd59Ob_H",
+      "image": "https://imgs.search.brave.com/Txw_lNMF-y6ldprEfxsXdlcmHSSYTgvWQbgVSol8Y2g/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93YWxs/cGFwZXJzLmNvbS9p/bWFnZXMvaGQvdGFp/bGVkLXMtaGVhcnQt/dTYyOGlvZnI2MDBx/djN0ZC5qcGc",
+      "title": "sumit birla",
+      "price": "100000000",
+      "description": "priya ke pyara me pagal sumit bewada......",
+      "category": "Men's Clothing"
     }
   ],
   "users": [
@@ -31,8 +31,42 @@
       "username": "sumit",
       "email": "sumit",
       "password": "sumit",
-      "isAdmin": true
+      "isAdmin": true,
+      "cart": [
+        {
+          "product": {
+            "id": "gCg7IDOSt3QNCCbcRUUYA",
+            "image": "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            "title": "camera",
+            "price": "55555",
+            "description": "48 mp camera of sony",
+            "category": "Accessories"
+          },
+          "quantity": 4
+        },
+        {
+          "product": {
+            "id": "1",
+            "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
+            "price": 109.95,
+            "description": "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
+            "category": "men's clothing",
+            "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
+          },
+          "quantity": 2
+        },
+        {
+          "product": {
+            "id": "YKD63crdk-WFrZd59Ob_H",
+            "image": "https://imgs.search.brave.com/Txw_lNMF-y6ldprEfxsXdlcmHSSYTgvWQbgVSol8Y2g/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93YWxs/cGFwZXJzLmNvbS9p/bWFnZXMvaGQvdGFp/bGVkLXMtaGVhcnQt/dTYyOGlvZnI2MDBx/djN0ZC5qcGc",
+            "title": "sumit birla",
+            "price": "100000000",
+            "description": "priya ke pyara me pagal sumit bewada......",
+            "category": "Men's Clothing"
+          },
+          "quantity": 1
+        }
+      ]
     }
-  ],
-  "carts": []
+  ]
 }

@@ -20,10 +20,10 @@ const Nav = () => {
   const closeMenu = () => setIsOpen(false);
 
   return (
-    <nav className="bg-[#096B68] text-white px-4 py-3 border border-amber-100">
+    <nav className="bg-[#21306d] text-white px-4 py-3 border border-amber-100">
       {/* Top section */}
       <div className="flex justify-between items-center">
-        <h1 className="text-lg font-semibold">MyStore</h1>
+        <h1 className="text-lg font-semibold"></h1>
 
         {/* Toggle button */}
         <button className="sm:hidden focus:outline-none" onClick={toggleMenu}>
@@ -38,26 +38,32 @@ const Nav = () => {
           >
             Home
           </NavLink>
-          {/* <NavLink
-            to="/"
-            className={({ isActive }) => (isActive ? "text-red-400" : "")}
-          >
-            Products
-          </NavLink> */}
+
           {user ? (
             <>
-              <NavLink
-                to="/admin/create-products"
-                className={({ isActive }) => (isActive ? "text-red-400" : "")}
-              >
-                Create Products
-              </NavLink>
+              {user.isAdmin ? (
+                <NavLink
+                  to="/admin/create-products"
+                  className={({ isActive }) => (isActive ? "text-red-400" : "")}
+                >
+                  Create Products
+                </NavLink>
+              ) : (
+                ""
+              )}
               <NavLink
                 to="/update-profile"
                 className={({ isActive }) => (isActive ? "text-red-400" : "")}
                 onClick={closeMenu}
               >
                 Settings
+              </NavLink>
+              <NavLink
+                to="/cart"
+                className={({ isActive }) => (isActive ? "text-red-400" : "")}
+                onClick={closeMenu}
+              >
+                Cart
               </NavLink>
               <button onClick={SignOutHandler}>Sign Out</button>
             </>

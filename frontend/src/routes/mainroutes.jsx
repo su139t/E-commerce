@@ -1,15 +1,17 @@
 import { Route, Routes } from "react-router-dom";
 import Home from "../pages/Home";
-import Products from "../pages/Products";
-import Register from "../pages/Register";
-import Login from "../pages/Login";
-import CreateProduct from "../pages/admin/CreateProduct";
-import ProductDetail from "../pages/admin/UpdateProduct";
+import { lazy } from "react";
+const Products = lazy(() => import("../pages/Products"));
+const Register = lazy(() => import("../pages/Register"));
+const Login = lazy(() => import("../pages/Login"));
+const CreateProduct = lazy(() => import("../pages/admin/CreateProduct"));
+const ProductDetail = lazy(() => import("../pages/admin/UpdateProduct"));
+const UserProfile = lazy(() => import("../pages/user/UserProfile"));
+const PageNotFound = lazy(() => import("../PageNotFound"));
+const AuthWrappe = lazy(() => import("./AuthWrappe"));
+const Cart = lazy(() => import("../pages/user/Cart"));
 import { useSelector } from "react-redux";
-import UserProfile from "../pages/user/UserProfile";
-import PageNotFound from "../PageNotFound";
-import AuthWrappe from "./AuthWrappe";
-import Cart from '../pages/user/Cart';
+
 const Mainroutes = () => {
   const { users } = useSelector((state) => state.userReducer);
   return (
